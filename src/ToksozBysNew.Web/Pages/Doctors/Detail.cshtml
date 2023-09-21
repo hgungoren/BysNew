@@ -1,0 +1,88 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Microsoft.AspNetCore.Authorization
+@using ToksozBysNew.Permissions
+@model ToksozBysNew.Web.Pages.Doctors.DetailModel
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+
+@section scripts
+    {
+    <abp-script src="/Pages/Doctors/detail.js" />
+}
+
+<div class="row" hidden="hidden">
+    <abp-input id="doctorId" asp-for="@Model.Doctor.Id"></abp-input>
+</div>
+<form method="post">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Doctor.NameSurname"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Doctor.PharmacyName"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Doctor.Spec"></abp-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Doctor.Title"></abp-input>
+            </div> 
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Doctor.Position"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Doctor.Unit"></abp-input>
+            </div>
+        </div> 
+    </div>
+    <div>
+        <abp-tabs>
+            <abp-tab title="Unit Information">
+                <abp-card>
+                    <abp-card-body>
+                        <abp-table striped-rows="true" id="UnitsTable">
+                            <thead>
+                                <tr>
+                                    <th>@L["Actions"]</th>
+                                    <th>@L["IsActive"]</th>
+                                    <th>@L["NameSurname"]</th>
+                                    <th>@L["Unit"]</th>
+                                    <th>@L["PharmacyName"]</th>
+                                    <th>@L["Position"]</th>
+                                    <th>@L["Spec"]</th>
+                                    <th>@L["Title"]</th>
+                                    <th>@L["BrickName"]</th>
+                                </tr>
+                            </thead>
+                        </abp-table>
+                    </abp-card-body>
+                </abp-card>
+            </abp-tab> 
+            <abp-tab title="Address Information">
+                <abp-card>
+                    <abp-card-body>
+                        <abp-table striped-rows="true" id="AddressTable">
+                            <thead>
+                                <tr>
+                                    <th>@L["Actions"]</th>
+                                    <th>@L["DoctorNameSurname"]</th>
+                                    <th>@L["Address"]</th>
+                                    <th>@L["Country"]</th>
+                                    <th>@L["Province"]</th>
+                                    <th>@L["District"]</th>
+                                    <th>@L["Brick"]</th>
+                                </tr>
+                            </thead>
+                        </abp-table>
+                    </abp-card-body>
+                </abp-card>
+            </abp-tab> 
+        </abp-tabs>
+    </div>  
+
+</form>

@@ -1,0 +1,30 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using ToksozBysNew.Web.Pages.Districts
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Districts;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Districts/EditModal" autocomplete="off">
+    <abp-modal id="DistrictEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    <abp-input asp-for="Id" />
+                    <abp-input asp-for="District.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+                    
+            <abp-input asp-for="District.DistrictName" />
+
+                                <abp-select asp-for="District.CountryId" asp-items="Model.CountryLookupList" label="@L["Country"].Value"/>            <abp-select asp-for="District.ProvinceId" asp-items="Model.ProvinceLookupList" label="@L["Province"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

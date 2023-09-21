@@ -1,0 +1,30 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using ToksozBysNew.Web.Pages.Departments
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Departments;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Departments/EditModal" autocomplete="off">
+    <abp-modal id="DepartmentEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    <abp-input asp-for="Id" />
+                    <abp-input asp-for="Department.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+                    
+            <abp-input asp-for="Department.DepartmentName" />
+
+                                <abp-select asp-for="Department.CompanyId" asp-items="Model.CompanyLookupList" label="@L["Company"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

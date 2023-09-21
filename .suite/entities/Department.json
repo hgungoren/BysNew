@@ -1,0 +1,62 @@
+{
+  "Id": "6681556e-2326-47b0-ac86-5e56e45b45d3",
+  "Name": "Department",
+  "OriginalName": "Department",
+  "NamePlural": "Departments",
+  "DatabaseTableName": "Departments",
+  "Namespace": "Departments",
+  "BaseClass": "FullAuditedAggregateRoot",
+  "MenuIcon": "far fa-building",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": false,
+  "CheckConcurrency": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldExportExcel": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": true,
+  "Properties": [
+    {
+      "Id": "7b2c8fbd-7fe9-4888-aca1-622d4a76c8a0",
+      "Name": "DepartmentName",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": 150,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "EntityNameWithDuplicationNumber": "Company",
+      "EntitySetNameWithDuplicationNumber": "Companies",
+      "ReferencePropertyName": "Company",
+      "UiPickType": "Dropdown",
+      "IsRequired": false,
+      "Name": "CompanyId",
+      "DisplayProperty": "CompanyName",
+      "Namespace": "ToksozBysNew.Companies",
+      "EntityName": "Company",
+      "EntitySetName": "Companies",
+      "DtoNamespace": "ToksozBysNew.Companies",
+      "DtoEntityName": "CompanyDto",
+      "Type": "Guid"
+    }
+  ],
+  "NavigationConnections": [],
+  "PhysicalFileName": "Department.json"
+}

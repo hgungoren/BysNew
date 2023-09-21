@@ -1,0 +1,23 @@
+﻿@page
+@model ToksozBysNew.Web.Pages.Invoices.Index11Model
+<button id="my-button">Trigger Workflow</button>
+<script>
+    const button = document.getElementById('my-button');
+    button.addEventListener('click', async () => {
+        const workflowName = 'VisualDocumentApprovalWorkflow';
+        const input = {
+            id: "1",
+            author: {
+                name: "John",
+                email: "john@gmail.com"
+            },
+            body: "This is sample document."
+        };
+        await fetch('/api/workflows/start/' + workflowName, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ input })
+        });
+    });</script>

@@ -1,0 +1,91 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using ToksozBysNew.Permissions
+@using ToksozBysNew.Web.Pages.Doctors
+@using ToksozBysNew.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+@model IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["Doctors"].Value;
+    PageLayout.Content.MenuItemName = ToksozBysNewMenus.Doctors;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Doctors/index.js" />
+}
+
+@section content_toolbar {
+    <abp-button id="ExportToExcelButton" text="@L["ExportToExcel"].Value" icon="download" size="Small" button-type="Primary" />
+    @if (await Authorization.IsGrantedAsync(ToksozBysNewPermissions.Doctors.Create))
+    {
+        <abp-button id="NewDoctorButton" text="@L["NewDoctor"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+		<abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]"/>
+                        <abp-button button-type="Primary" type="submit" icon="search"/>
+                    </div>
+                </form>
+            </abp-column>
+            <abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>
+        </abp-row>
+
+        <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-column size="_3">
+                <abp-select asp-for="IsActiveFilter" label="@L["IsActive"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="NameSurnameFilter" label="@L["NameSurname"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="PharmacyNameFilter" label="@L["PharmacyName"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="PositionIdFilter" label="@L["Position"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="SpecIdFilter" label="@L["Spec"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="CustomerTitleIdFilter" label="@L["CustomerTitle"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="UnitIdFilter" label="@L["Unit"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="CustomerTypeIdFilter" label="@L["CustomerType"].Value" />
+            </abp-column>
+        </abp-row>
+
+        <abp-table striped-rows="true" id="DoctorsTable">
+            <thead>
+				<tr>
+					<th>@L["Actions"]</th>
+					<th>@L["IsActive"]</th>
+					<th>@L["NameSurname"]</th>
+					<th>@L["PharmacyName"]</th>
+					<th>@L["Position"]</th>
+					<th>@L["Spec"]</th>
+					<th>@L["CustomerTitle"]</th>
+					<th>@L["Unit"]</th>
+					<th>@L["CustomerType"]</th>
+				</tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
+

@@ -1,0 +1,62 @@
+{
+  "Id": "56fc1594-cf0d-40f2-9146-eff07b7d1fa4",
+  "Name": "Province",
+  "OriginalName": "Province",
+  "NamePlural": "Provinces",
+  "DatabaseTableName": "Provinces",
+  "Namespace": "Provinces",
+  "BaseClass": "FullAuditedAggregateRoot",
+  "MenuIcon": "file-alt",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": false,
+  "CheckConcurrency": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldExportExcel": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": true,
+  "Properties": [
+    {
+      "Id": "c34ed29b-e8dd-47e3-b330-72ae9fdedf0e",
+      "Name": "ProvinceName",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "EntityNameWithDuplicationNumber": "Country",
+      "EntitySetNameWithDuplicationNumber": "Countries",
+      "ReferencePropertyName": "Country",
+      "UiPickType": "Dropdown",
+      "IsRequired": false,
+      "Name": "CountryId",
+      "DisplayProperty": "CountryName",
+      "Namespace": "ToksozBysNew.Countries",
+      "EntityName": "Country",
+      "EntitySetName": "Countries",
+      "DtoNamespace": "ToksozBysNew.Countries",
+      "DtoEntityName": "CountryDto",
+      "Type": "Guid"
+    }
+  ],
+  "NavigationConnections": [],
+  "PhysicalFileName": "Province.json"
+}

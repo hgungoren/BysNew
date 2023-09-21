@@ -1,0 +1,28 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.Countries
+@using ToksozBysNew.Countries;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Countries/CreateModal" autocomplete="off">
+    <abp-modal id="CountryCreateModal">
+        <abp-modal-header title="@L["NewCountry"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="Country.CountryName" />
+
+                    
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

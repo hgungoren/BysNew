@@ -1,0 +1,36 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.Invoices
+@using ToksozBysNew.Invoices;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Invoices/CreateModal" autocomplete="off">
+    <abp-modal id="InvoiceCreateModal">
+        <abp-modal-header title="@L["NewInvoice"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="Invoice.InvoiceSerialNo" />
+
+            <abp-input asp-for="Invoice.InvoiceDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date"/>
+
+            <abp-input asp-for="Invoice.Notes" />
+
+            <abp-input asp-for="Invoice.PaymentDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date"/>
+
+            <abp-input asp-for="Invoice.Amount" />
+
+                    
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

@@ -1,0 +1,58 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using ToksozBysNew.Web.Pages.InvoiceDetails
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.InvoiceDetails;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/InvoiceDetails/EditModal" autocomplete="off">
+
+    <div hidden="hidden">
+        <abp-input asp-for="InvoiceDetail.InvoiceId" />
+    </div>
+    <div hidden="hidden">
+        <abp-input asp-for="Id" />
+    </div>
+
+    <abp-modal id="InvoiceDetailEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+            @*  <abp-input asp-for="Id" />
+            <abp-input asp-for="InvoiceDetail.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailQuantity" />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailPrice" />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailNote" />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailDate" value="@(Model.InvoiceDetail.InvoiceDetailDate.ToString("yyyy-MM-dd"))" type="date"/>
+
+            <abp-input asp-for="InvoiceDetail.Tax" />*@
+            @*<div hidden="hidden">
+
+                <abp-select asp-for="InvoiceDetail.InvoiceId" asp-items="Model.InvoiceLookupList" label="@L["Invoice"].Value" />
+            </div>*@
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailQuantity" />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailPrice" type=number min=0 step=0,01/>
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailNote" />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" />
+
+            <abp-select asp-for="InvoiceDetail.TaxListId" asp-items="Model.TaxLookupList" label="@L["Tax"].Value" />
+
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

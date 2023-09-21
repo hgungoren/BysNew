@@ -1,0 +1,62 @@
+{
+  "Id": "466c7287-4a44-4658-9193-5695c79cdd51",
+  "Name": "Product",
+  "OriginalName": "Product",
+  "NamePlural": "Products",
+  "DatabaseTableName": "Products",
+  "Namespace": "Products",
+  "BaseClass": "FullAuditedAggregateRoot",
+  "MenuIcon": "fab fa-product-hunt",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": false,
+  "CheckConcurrency": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldExportExcel": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": true,
+  "Properties": [
+    {
+      "Id": "f8ea658f-d0e0-4c13-a1e6-081bbc916dac",
+      "Name": "ProductName",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": true,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": 100,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "EntityNameWithDuplicationNumber": "Department",
+      "EntitySetNameWithDuplicationNumber": "Departments",
+      "ReferencePropertyName": "Department",
+      "UiPickType": "Dropdown",
+      "IsRequired": false,
+      "Name": "DepartmentId",
+      "DisplayProperty": "DepartmentName",
+      "Namespace": "ToksozBysNew.Departments",
+      "EntityName": "Department",
+      "EntitySetName": "Departments",
+      "DtoNamespace": "ToksozBysNew.Departments",
+      "DtoEntityName": "DepartmentDto",
+      "Type": "Guid"
+    }
+  ],
+  "NavigationConnections": [],
+  "PhysicalFileName": "Product.json"
+}

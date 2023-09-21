@@ -1,0 +1,79 @@
+@page
+@model IndexModel
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using ToksozBysNew.Permissions
+@using ToksozBysNew.Web.Pages.Invoices
+@using ToksozBysNew.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["Invoices"].Value;
+    PageLayout.Content.MenuItemName = ToksozBysNewMenus.Invoices;
+}
+
+<style>
+    .flex {
+  display: flex;
+  gap: 1341px;
+}
+</style>
+
+@section scripts
+    {
+    <abp-script src="/Pages/Invoices/index.js" />
+}
+
+<div class="row" hidden="hidden">
+    <abp-input id="invoiceId" asp-for="@Model.Invoice.Id"></abp-input>
+</div>
+<form method="post">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.InvoiceSerialNo"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.InvoiceDate"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.Notes"></abp-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.PaymentDate"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.Amount" type=number min=0 step=0,01></abp-input>
+            </div>
+        </div>
+        <div class="flex">
+            <abp-button style="float:left" type="submit" id="Save" text="@L["Save"].Value" icon="save" size="Small" button-type="Primary" />
+            @if (await Authorization.IsGrantedAsync(ToksozBysNewPermissions.Invoices.Create))
+            {
+                <abp-button style="float:right" id="NewInvoiceDetailButton" text="@L["NewInvoiceDetail"].Value" icon="plus" size="Small" button-type="Primary" />
+            }
+        </div>
+    </div>
+</form>
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="InvoiceDetailsTable">
+            <thead>
+                <tr>
+                    <th>@L["Actions"]</th>
+                    <th>@L["InvoiceDetailQuantity"]</th>
+                    <th>@L["InvoiceDetailPrice"]</th>
+                    <th>@L["InvoiceDetailNote"]</th>
+                    <th>@L["InvoiceDetailDate"]</th>
+                    <th>@L["Tax"]</th>
+                </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

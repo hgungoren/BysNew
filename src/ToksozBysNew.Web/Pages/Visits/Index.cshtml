@@ -1,0 +1,135 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using ToksozBysNew.Permissions
+@using ToksozBysNew.Web.Pages.Visits
+@using ToksozBysNew.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+@model IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["Visits"].Value;
+    PageLayout.Content.MenuItemName = ToksozBysNewMenus.Visits;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Visits/index.js" />
+}
+
+@section content_toolbar {
+    <abp-button id="ExportToExcelButton" text="@L["ExportToExcel"].Value" icon="download" size="Small" button-type="Primary" />
+    @if (await Authorization.IsGrantedAsync(ToksozBysNewPermissions.Visits.Create))
+    {
+        <abp-button id="NewVisitButton" text="@L["NewVisit"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+		<abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]"/>
+                        <abp-button button-type="Primary" type="submit" icon="search"/>
+                    </div>
+                </form>
+            </abp-column>
+            <abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>
+        </abp-row>
+
+        <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDateFilterMin" label="@L["MinVisitDate"].Value" type="date"/>
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDateFilterMax" label="@L["MaxVisitDate"].Value" type="date"/>
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitNotesFilter" label="@L["VisitNotes"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="DoctorIdFilter" label="@L["Doctor"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="UnitIdFilter" label="@L["Unit"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="ClinicIdFilter" label="@L["Clinic"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="BrickIdFilter" label="@L["Brick"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="IdentityUserIdFilter" label="@L["IdentityUser"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="SpecIdFilter" label="@L["Spec"].Value" />
+            </abp-column>
+        </abp-row>
+
+        <abp-table striped-rows="true" id="VisitsTable">
+            <thead>
+				<tr>
+					<th>@L["Actions"]</th>
+					<th>@L["VisitDate"]</th>
+					<th>@L["VisitNotes"]</th>
+					<th>@L["Doctor"]</th>
+					<th>@L["Unit"]</th>
+					<th>@L["Clinic"]</th>
+					<th>@L["Brick"]</th>
+					<th>@L["IdentityUser"]</th>
+					<th>@L["Spec"]</th>
+				</tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
+<abp-accordion>
+    <abp-accordion-item title="Musteri Secimi">
+        <form >
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <abp-input id="customerName" asp-for="@Model.Visit.CustomerName"></abp-input> 
+                    </div>
+                    <div class="col-md-4"> 
+                        <abp-button id="searchButton" size="Small" button-type="Primary" text="Isime Gore Ara" icon="search"></abp-button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <abp-input asp-for="@Model.Visit.SpecCode"></abp-input>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <abp-input asp-for="@Model.Visit.UnitName"></abp-input>
+                    </div>
+                </div> 
+            </div>
+        </form>
+    </abp-accordion-item>  
+        <abp-accordion-item title="Secilen Musteriler">
+            <abp-table striped-rows="true" id="VisitSearchTable">
+                <thead>
+                    <tr>
+                        <th>@L["CustomerName"]</th>
+                        <th>@L["SpecCode"]</th>
+                        <th>@L["UnitName"]</th>
+                    </tr>
+                </thead>
+            </abp-table>
+        </abp-accordion-item> 
+    
+    <abp-accordion-item title="Ziyaretler">
+        Seçilen Müþteriler Bu Alanda Gözükecektir.
+    </abp-accordion-item>
+
+</abp-accordion>

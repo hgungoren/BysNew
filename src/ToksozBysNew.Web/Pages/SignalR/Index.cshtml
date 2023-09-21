@@ -1,0 +1,30 @@
+﻿@page
+@model ToksozBysNew.Web.Pages.SignalR.IndexModel
+@using ToksozBysNew.Web.Menus
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.Users
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@{
+     
+}
+
+<script>
+    var handleSignalR = function (response){
+      $("#time").text(response.message);
+    }
+    var makePostRequest = function() {
+        $.ajax({
+           type: "POST",
+           contentType: "application/json; charset=utf-8",
+           dataType: "json"
+        });
+    };
+    document.addEventListener('DOMContentLoaded', function(){
+        myNotificationManager.messageListeners.notificationProcessMessages.push(handleSignalR);
+    }, false);
+</script>
+
+<h1 id="time"></h1>

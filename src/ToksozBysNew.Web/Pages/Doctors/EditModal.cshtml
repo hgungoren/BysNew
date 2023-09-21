@@ -1,0 +1,34 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using ToksozBysNew.Web.Pages.Doctors
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Doctors;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Doctors/EditModal" autocomplete="off">
+    <abp-modal id="DoctorEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    <abp-input asp-for="Id" />
+                    <abp-input asp-for="Doctor.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+                    
+            <abp-input asp-for="Doctor.IsActive" />
+
+            <abp-input asp-for="Doctor.NameSurname" />
+
+            <abp-input asp-for="Doctor.PharmacyName" />
+
+                                <abp-select asp-for="Doctor.PositionId" asp-items="Model.PositionLookupList" label="@L["Position"].Value"/>            <abp-select asp-for="Doctor.SpecId" asp-items="Model.SpecLookupList" label="@L["Spec"].Value"/>            <abp-select asp-for="Doctor.CustomerTitleId" asp-items="Model.CustomerTitleLookupList" label="@L["CustomerTitle"].Value"/>            <abp-select asp-for="Doctor.UnitId" asp-items="Model.UnitLookupList" label="@L["Unit"].Value"/>            <abp-select asp-for="Doctor.CustomerTypeId" asp-items="Model.CustomerTypeLookupList" label="@L["CustomerType"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

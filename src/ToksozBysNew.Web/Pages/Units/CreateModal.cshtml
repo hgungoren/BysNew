@@ -1,0 +1,28 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.Units
+@using ToksozBysNew.Units;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Units/CreateModal" autocomplete="off">
+    <abp-modal id="UnitCreateModal">
+        <abp-modal-header title="@L["NewUnit"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="Unit.UnitName" />
+
+                                <abp-select asp-for="Unit.BrickId" asp-items="Model.BrickLookupList" label="@L["Brick"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

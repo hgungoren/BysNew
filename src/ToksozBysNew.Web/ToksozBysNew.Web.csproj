@@ -1,0 +1,100 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <Import Project="..\..\common.props" />
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <RootNamespace>ToksozBysNew.Web</RootNamespace>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+    <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\**\*.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pages\**\*.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Hangfire\EmailSendingJob.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Workflows\VisualDocumentApprovalWorkflow.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\DevExtreme\styles.css" />
+    <None Remove="Pages\Doctors\Detail.js" />
+    <None Remove="Pages\Files\Index.js" />
+    <None Remove="Pages\InvoiceDetails\Details.js" />
+    <None Remove="Pages\InvoiceLists\Index.js" />
+    <None Remove="Pages\Invoices\InvoiceGrid.js" />
+    <None Remove="Pages\notification-hub.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="7.0.0-rc2.7" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.0.0-rc2.7" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="7.0.0-rc2.7" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="BundlerMinifier.Core" Version="3.2.449" />
+    <PackageReference Include="DevExpress.AspNetCore.Dashboard" Version="22.2.5" />
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="22.2.5" />
+    <PackageReference Include="DevExpress.Dashboard.Core" Version="22.2.5" />
+    <PackageReference Include="DevExpress.Data" Version="22.2.5" />
+    <PackageReference Include="DevExpress.Web.Reporting.Common" Version="22.2.5" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="22.2.5" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.9.0" />
+    <PackageReference Include="Elsa" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Activities.Console" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Activities.Email" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Activities.Http" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Activities.Temporal.Quartz" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Designer.Components.Web" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Persistence.EntityFramework.Core" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Persistence.EntityFramework.SqlServer" Version="2.10.2.2" />
+    <PackageReference Include="Elsa.Server.Api" Version="2.10.2.2" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.33" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.33" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.33" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Admin.Application" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.BackgroundWorkers.Hangfire" Version="7.0.0" />
+    <PackageReference Include="Volo.FileManagement.Web" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToksozBysNew.Application\ToksozBysNew.Application.csproj" />
+    <ProjectReference Include="..\ToksozBysNew.HttpApi\ToksozBysNew.HttpApi.csproj" />
+    <ProjectReference Include="..\ToksozBysNew.EntityFrameworkCore\ToksozBysNew.EntityFrameworkCore.csproj" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Swashbuckle" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Public.Web.OpenIddict" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.AuditLogging.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Identity.Pro.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.OpenIddict.Pro.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.LanguageManagement.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Saas.Host.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.TextTemplateManagement.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Gdpr.Web" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.LeptonTheme.Management.Web" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Lepton" Version="7.0.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,190 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using ToksozBysNew.Permissions
+@using ToksozBysNew.Web.Pages.VisitDailyActions
+@using ToksozBysNew.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+@model IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["VisitDailyActions"].Value;
+    PageLayout.Content.MenuItemName = ToksozBysNewMenus.VisitDailyActions;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/VisitDailyActions/index.js" />
+}
+
+@section content_toolbar {
+    <abp-button id="ExportToExcelButton" text="@L["ExportToExcel"].Value" icon="download" size="Small" button-type="Primary" />
+    @if (await Authorization.IsGrantedAsync(ToksozBysNewPermissions.VisitDailyActions.Create))
+    {
+        <abp-button id="NewVisitDailyActionButton" text="@L["NewVisitDailyAction"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<div class="row" hidden="hidden">
+    <abp-input id="userId" asp-for="@Model.UserId"></abp-input>
+</div>
+
+<abp-card>
+    <abp-card-body>
+		<abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]"/>
+                        <abp-button button-type="Primary" type="submit" icon="search"/>
+                    </div>
+                </form>
+            </abp-column>
+            <abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>
+        </abp-row>
+
+        <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDailyDateFilterMin" label="@L["MinVisitDailyDate"].Value" type="date"/>
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDailyDateFilterMax" label="@L["MaxVisitDailyDate"].Value" type="date"/>
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily1FilterMin" label="@L["MinVisitDaily1"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily1FilterMax" label="@L["MaxVisitDaily1"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily2FilterMin" label="@L["MinVisitDaily2"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily2FilterMax" label="@L["MaxVisitDaily2"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily3FilterMin" label="@L["MinVisitDaily3"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily3FilterMax" label="@L["MaxVisitDaily3"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily4FilterMin" label="@L["MinVisitDaily4"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily4FilterMax" label="@L["MaxVisitDaily4"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily5FilterMin" label="@L["MinVisitDaily5"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily5FilterMax" label="@L["MaxVisitDaily5"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily6FilterMin" label="@L["MinVisitDaily6"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily6FilterMax" label="@L["MaxVisitDaily6"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily7FilterMin" label="@L["MinVisitDaily7"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily7FilterMax" label="@L["MaxVisitDaily7"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily8FilterMin" label="@L["MinVisitDaily8"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily8FilterMax" label="@L["MaxVisitDaily8"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily9FilterMin" label="@L["MinVisitDaily9"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily9FilterMax" label="@L["MaxVisitDaily9"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily10FilterMin" label="@L["MinVisitDaily10"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily10FilterMax" label="@L["MaxVisitDaily10"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily11FilterMin" label="@L["MinVisitDaily11"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily11FilterMax" label="@L["MaxVisitDaily11"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily12FilterMin" label="@L["MinVisitDaily12"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily12FilterMax" label="@L["MaxVisitDaily12"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily13FilterMin" label="@L["MinVisitDaily13"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily13FilterMax" label="@L["MaxVisitDaily13"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily14FilterMin" label="@L["MinVisitDaily14"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily14FilterMax" label="@L["MaxVisitDaily14"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily15FilterMin" label="@L["MinVisitDaily15"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDaily15FilterMax" label="@L["MaxVisitDaily15"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDailyCloseDateFilterMin" label="@L["MinVisitDailyCloseDate"].Value" type="date"/>
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDailyCloseDateFilterMax" label="@L["MaxVisitDailyCloseDate"].Value" type="date"/>
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="VisitDailyNoteFilter" label="@L["VisitDailyNote"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="IdentityUserIdFilter" label="@L["IdentityUser"].Value" />
+            </abp-column>
+        </abp-row>
+
+        <abp-table striped-rows="true" id="VisitDailyActionsTable">
+            <thead>
+				<tr>
+					<th>@L["Actions"]</th>
+					<th>@L["VisitDailyDate"]</th>
+                    <th>@L["DoctorVisitCount"]</th>
+                    <th>@L["PharmaVisitCount"]</th>
+					<th>@L["VisitDaily1"]</th>
+					<th>@L["VisitDaily2"]</th>
+					<th>@L["VisitDaily3"]</th>
+					<th>@L["VisitDaily4"]</th>
+					<th>@L["VisitDaily5"]</th>
+					<th>@L["VisitDaily6"]</th>
+					<th>@L["VisitDaily7"]</th>
+					<th>@L["VisitDaily8"]</th>
+					<th>@L["VisitDaily9"]</th>
+					<th>@L["VisitDaily10"]</th>
+					<th>@L["VisitDaily11"]</th>
+					<th>@L["VisitDaily12"]</th>
+					<th>@L["VisitDaily13"]</th>
+					<th>@L["VisitDaily14"]</th>
+					<th>@L["VisitDaily15"]</th>
+					@*<th>@L["VisitDailyCloseDate"]</th>
+					<th>@L["VisitDailyNote"]</th> *@
+				</tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

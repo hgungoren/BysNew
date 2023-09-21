@@ -1,0 +1,28 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.Clinics
+@using ToksozBysNew.Clinics;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Clinics/CreateModal" autocomplete="off">
+    <abp-modal id="ClinicCreateModal">
+        <abp-modal-header title="@L["NewClinic"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="Clinic.ClinicName" />
+
+                                <abp-select asp-for="Clinic.UnitId" asp-items="Model.UnitLookupList" label="@L["Unit"].Value"/>            <abp-select asp-for="Clinic.SpecId" asp-items="Model.SpecLookupList" label="@L["Spec"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

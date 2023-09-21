@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.AspNetCore.Mvc.UI.RazorPages;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
+using ToksozBysNew.Accounts;
+using ToksozBysNew.Shared;
+
+namespace ToksozBysNew.Web.Pages.Accounts
+{
+    public class IndexModel : AbpPageModel
+    {
+        public string AccountCodeFilter { get; set; }
+        public string AccountNameFilter { get; set; }
+        public string DescriptionFilter { get; set; }
+        [SelectItems(nameof(IsActiveBoolFilterItems))]
+        public string IsActiveFilter { get; set; }
+
+        public List<SelectListItem> IsActiveBoolFilterItems { get; set; } =
+            new List<SelectListItem>
+            {
+                new SelectListItem("", ""),
+                new SelectListItem("Yes", "true"),
+                new SelectListItem("No", "false"),
+            };
+
+        private readonly IAccountsAppService _accountsAppService;
+
+        public IndexModel(IAccountsAppService accountsAppService)
+        {
+            _accountsAppService = accountsAppService;
+        }
+
+        public async Task OnGetAsync()
+        {
+
+            await Task.CompletedTask;
+        }
+    }
+}

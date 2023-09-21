@@ -1,0 +1,68 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using ToksozBysNew.Web.Pages.BudgetDistributions
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.BudgetDistributions;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/BudgetDistributions/EditModal" autocomplete="off">
+    <abp-modal id="BudgetDistributionEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    <abp-input asp-for="Id" />
+                    <abp-input asp-for="BudgetDistribution.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+                    
+            <abp-input asp-for="BudgetDistribution.CostCenter" />
+
+            <abp-input asp-for="BudgetDistribution.ExpenseType" />
+
+            <abp-input asp-for="BudgetDistribution.ProjectItem" />
+
+            <abp-input asp-for="BudgetDistribution.Type" />
+
+            <abp-input asp-for="BudgetDistribution.Unit" />
+
+            <abp-input asp-for="BudgetDistribution.UnitValue" />
+
+            <abp-input asp-for="BudgetDistribution.Month" />
+
+            <abp-input asp-for="BudgetDistribution.Year" />
+
+            <abp-input asp-for="BudgetDistribution.Ratio" />
+
+            <abp-input asp-for="BudgetDistribution.Amount" />
+
+            <abp-input asp-for="BudgetDistribution.Memo" />
+
+            <abp-input asp-for="BudgetDistribution.Invoice" />
+
+            <abp-input asp-for="BudgetDistribution.Currency" />
+
+            <abp-input asp-for="BudgetDistribution.CurrencyAmount" />
+
+            <abp-input asp-for="BudgetDistribution.ExpenseCategory" />
+
+            <abp-input asp-for="BudgetDistribution.ExpenseNecessity" />
+
+            <abp-input asp-for="BudgetDistribution.Comment" />
+
+            <abp-input asp-for="BudgetDistribution.Status" />
+
+            <abp-input asp-for="BudgetDistribution.Approval" />
+
+            <abp-input asp-for="BudgetDistribution.IsActive" />
+
+                                <abp-select asp-for="BudgetDistribution.DepartmentId" asp-items="Model.DepartmentLookupListRequired" label="@L["Department"].Value"/>            <abp-select asp-for="BudgetDistribution.ProductId" asp-items="Model.ProductLookupList" label="@L["Product"].Value"/>            <abp-select asp-for="BudgetDistribution.BudgetId" asp-items="Model.BudgetLookupListRequired" label="@L["Budget"].Value"/>            <abp-select asp-for="BudgetDistribution.AccountGroupId" asp-items="Model.AccountGroupLookupList" label="@L["AccountGroup"].Value"/>            <abp-select asp-for="BudgetDistribution.AccountId" asp-items="Model.AccountLookupList" label="@L["Account"].Value"/>            <abp-select asp-for="BudgetDistribution.IdentityUserId" asp-items="Model.IdentityUserLookupList" label="@L["IdentityUser"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

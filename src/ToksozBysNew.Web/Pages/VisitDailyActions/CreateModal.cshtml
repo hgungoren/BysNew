@@ -1,0 +1,62 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.VisitDailyActions
+@using ToksozBysNew.VisitDailyActions;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/VisitDailyActions/CreateModal" autocomplete="off">
+    <abp-modal id="VisitDailyActionCreateModal">
+        <abp-modal-header title="@L["NewVisitDailyAction"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="VisitDailyAction.VisitDailyDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date"/>
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily1" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily2" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily3" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily4" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily5" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily6" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily7" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily8" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily9" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily10" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily11" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily12" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily13" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily14" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDaily15" />
+
+            <abp-input asp-for="VisitDailyAction.VisitDailyCloseDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date"/>
+
+            <abp-input asp-for="VisitDailyAction.VisitDailyNote" />
+
+                                <abp-select asp-for="VisitDailyAction.IdentityUserId" asp-items="Model.IdentityUserLookupList" label="@L["IdentityUser"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

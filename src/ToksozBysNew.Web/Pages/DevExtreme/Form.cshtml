@@ -1,0 +1,133 @@
+﻿@page
+@using ToksozBysNew.Web.Pages.DevExtreme
+@using DevExtreme.AspNet.Mvc
+@model ToksozBysNew.Web.Pages.DevExtreme.ActiveCompany 
+
+<div id="form-demo">
+    <div class="widget-container">
+        <div id="companySelectText">Select company:</div>
+        @(Html.DevExtreme().SelectBox()
+            .ID("companySelectBox")
+            .DisplayExpr("Name")
+            .Label("Select company")
+            .LabelMode(EditorLabelMode.Floating) 
+            .Value(1)
+            .OnValueChanged("selectBox_valueChanged")
+            )
+        @(Html.DevExtreme().Form()
+            .ID("form")
+            .ColCount(2)
+            .FormData(Model)
+            .LabelMode(FormLabelMode.Floating)
+            .LabelLocation(FormLabelLocation.Left)
+            .MinColWidth(300)
+            .ReadOnly(false)
+            .ShowColonAfterLabel(true)
+            )
+    </div>
+    <div class="options">
+        <div class="caption">Options</div>
+        <div class="option">
+            <span>Label mode:</span>
+            @(Html.DevExtreme().SelectBox()
+                .DataSource(new[] { "outside", "static", "floating", "hidden" })
+                .Value("floating")
+                .OnValueChanged("labelMode_changed")
+                )
+        </div>
+        <div class="option">
+            <span>Label location:</span>
+            @(Html.DevExtreme().SelectBox()
+                .DataSource(new[] { "left", "top" })
+                .Value("left")
+                .OnValueChanged("labelLocation_changed")
+                )
+        </div>
+        <div class="option">
+            <span>Columns count:</span>
+            @(Html.DevExtreme().SelectBox()
+                .DataSource(new object[] { "auto", 1, 2, 3 })
+                .Value(2)
+                .OnValueChanged("colCount_changed")
+                )
+        </div>
+        <div class="option">
+            <span>Min column width:</span>
+            @(Html.DevExtreme().SelectBox()
+                .DataSource(new[] { 150, 200, 300 })
+                .Value(300)
+                .OnValueChanged("minColWidth_changed")
+                )
+        </div>
+        <div class="option">
+            <span>Form width:</span>
+            @(Html.DevExtreme().NumberBox()
+                .Value(null)
+                .Max(550)
+                .OnValueChanged("formWidth_changed")
+                )
+        </div>
+        <div class="option">
+            @(Html.DevExtreme().CheckBox()
+                .Text("readOnly")
+                .Value(false)
+                .OnValueChanged("readOnly_changed")
+                )
+        </div>
+        <div class="option">
+            @(Html.DevExtreme().CheckBox()
+                .Text("showColonAfterLabel")
+                .Value(true)
+                .OnValueChanged("showColonAfterLabel_changed")
+                )
+        </div>
+    </div>
+</div>
+
+<script>
+    function getFormInstance() {
+        return $("#form").dxForm("instance");
+    }
+
+    function selectBox_valueChanged(data) {
+        getFormInstance().option("formData", data.value);
+    }
+
+    function labelMode_changed(data) {
+        getFormInstance().option("labelMode", data.value);
+
+        const $companySelectText = $("#companySelectText");
+        const companySelectBox = $("#companySelectBox").dxSelectBox("instance");
+        if (data.value === "outside") {
+            companySelectBox.option("labelMode", "hidden");
+            $companySelectText.show();
+        } else {
+            companySelectBox.option("labelMode", data.value);
+            $companySelectText.hide();
+        }
+    }
+
+    function labelLocation_changed(data) {
+        getFormInstance().option("labelLocation", data.value);
+    }
+
+    function colCount_changed(data) {
+        getFormInstance().option("colCount", data.value);
+    }
+
+    function minColWidth_changed(data) {
+        getFormInstance().option("minColWidth", data.value);
+    }
+
+    function formWidth_changed(data) {
+        getFormInstance().option("width", data.value);
+    }
+
+    function readOnly_changed(data) {
+        getFormInstance().option("readOnly", data.value);
+    }
+
+    function showColonAfterLabel_changed(data) {
+        getFormInstance().option("showColonAfterLabel", data.value);
+    }
+</script>

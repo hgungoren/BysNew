@@ -1,0 +1,62 @@
+{
+  "Id": "1e4de81a-7514-47fb-96b5-7a0e158d730a",
+  "Name": "Unit",
+  "OriginalName": "Unit",
+  "NamePlural": "Units",
+  "DatabaseTableName": "Units",
+  "Namespace": "Units",
+  "BaseClass": "FullAuditedAggregateRoot",
+  "MenuIcon": "file-alt",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": false,
+  "CheckConcurrency": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldExportExcel": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": true,
+  "Properties": [
+    {
+      "Id": "7690ac6d-834d-4e1c-9a20-9bf6df1f18a5",
+      "Name": "UnitName",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "EntityNameWithDuplicationNumber": "Brick",
+      "EntitySetNameWithDuplicationNumber": "Bricks",
+      "ReferencePropertyName": "Brick",
+      "UiPickType": "Dropdown",
+      "IsRequired": false,
+      "Name": "BrickId",
+      "DisplayProperty": "BrickName",
+      "Namespace": "ToksozBysNew.Bricks",
+      "EntityName": "Brick",
+      "EntitySetName": "Bricks",
+      "DtoNamespace": "ToksozBysNew.Bricks",
+      "DtoEntityName": "BrickDto",
+      "Type": "Guid"
+    }
+  ],
+  "NavigationConnections": [],
+  "PhysicalFileName": "Unit.json"
+}

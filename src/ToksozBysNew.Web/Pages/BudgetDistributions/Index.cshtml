@@ -1,0 +1,207 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using ToksozBysNew.Permissions
+@using ToksozBysNew.Web.Pages.BudgetDistributions
+@using ToksozBysNew.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+@model IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["BudgetDistributions"].Value;
+    PageLayout.Content.MenuItemName = ToksozBysNewMenus.BudgetDistributions;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/BudgetDistributions/index.js" />
+}
+
+@section content_toolbar {
+    <abp-button id="ExportToExcelButton" text="@L["ExportToExcel"].Value" icon="download" size="Small" button-type="Primary" />
+    @if (await Authorization.IsGrantedAsync(ToksozBysNewPermissions.BudgetDistributions.Create))
+    {
+        <abp-button id="NewBudgetDistributionButton" text="@L["NewBudgetDistribution"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+		<abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]"/>
+                        <abp-button button-type="Primary" type="submit" icon="search"/>
+                    </div>
+                </form>
+            </abp-column>
+            <abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>
+        </abp-row>
+
+        <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-column size="_3">
+                <abp-input asp-for="CostCenterFilter" label="@L["CostCenter"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ExpenseTypeFilter" label="@L["ExpenseType"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ProjectItemFilterMin" label="@L["MinProjectItem"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ProjectItemFilterMax" label="@L["MaxProjectItem"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="TypeFilterMin" label="@L["MinType"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="TypeFilterMax" label="@L["MaxType"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="UnitFilterMin" label="@L["MinUnit"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="UnitFilterMax" label="@L["MaxUnit"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="UnitValueFilterMin" label="@L["MinUnitValue"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="UnitValueFilterMax" label="@L["MaxUnitValue"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="MonthFilterMin" label="@L["MinMonth"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="MonthFilterMax" label="@L["MaxMonth"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="YearFilterMin" label="@L["MinYear"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="YearFilterMax" label="@L["MaxYear"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="RatioFilterMin" label="@L["MinRatio"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="RatioFilterMax" label="@L["MaxRatio"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="AmountFilterMin" label="@L["MinAmount"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="AmountFilterMax" label="@L["MaxAmount"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="MemoFilterMin" label="@L["MinMemo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="MemoFilterMax" label="@L["MaxMemo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="InvoiceFilterMin" label="@L["MinInvoice"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="InvoiceFilterMax" label="@L["MaxInvoice"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="CurrencyFilterMin" label="@L["MinCurrency"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="CurrencyFilterMax" label="@L["MaxCurrency"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="CurrencyAmountFilterMin" label="@L["MinCurrencyAmount"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="CurrencyAmountFilterMax" label="@L["MaxCurrencyAmount"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ExpenseCategoryFilterMin" label="@L["MinExpenseCategory"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ExpenseCategoryFilterMax" label="@L["MaxExpenseCategory"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ExpenseNecessityFilterMin" label="@L["MinExpenseNecessity"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ExpenseNecessityFilterMax" label="@L["MaxExpenseNecessity"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="CommentFilter" label="@L["Comment"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="StatusFilter" label="@L["Status"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ApprovalFilterMin" label="@L["MinApproval"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="ApprovalFilterMax" label="@L["MaxApproval"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="IsActiveFilter" label="@L["IsActive"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="DepartmentIdFilter" label="@L["Department"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="ProductIdFilter" label="@L["Product"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="BudgetIdFilter" label="@L["Budget"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="AccountGroupIdFilter" label="@L["AccountGroup"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="AccountIdFilter" label="@L["Account"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="IdentityUserIdFilter" label="@L["IdentityUser"].Value" />
+            </abp-column>
+        </abp-row>
+
+        <abp-table striped-rows="true" id="BudgetDistributionsTable">
+            <thead>
+				<tr>
+					<th>@L["Actions"]</th>
+					<th>@L["CostCenter"]</th>
+					<th>@L["ExpenseType"]</th>
+					<th>@L["ProjectItem"]</th>
+					<th>@L["Type"]</th>
+					<th>@L["Unit"]</th>
+					<th>@L["UnitValue"]</th>
+					<th>@L["Month"]</th>
+					<th>@L["Year"]</th>
+					<th>@L["Ratio"]</th>
+					<th>@L["Amount"]</th>
+					<th>@L["Memo"]</th>
+					<th>@L["Invoice"]</th>
+					<th>@L["Currency"]</th>
+					<th>@L["CurrencyAmount"]</th>
+					<th>@L["ExpenseCategory"]</th>
+					<th>@L["ExpenseNecessity"]</th>
+					<th>@L["Comment"]</th>
+					<th>@L["Status"]</th>
+					<th>@L["Approval"]</th>
+					<th>@L["IsActive"]</th>
+					<th>@L["Department"]</th>
+					<th>@L["Product"]</th>
+					<th>@L["Budget"]</th>
+					<th>@L["AccountGroup"]</th>
+					<th>@L["Account"]</th>
+					<th>@L["IdentityUser"]</th>
+				</tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

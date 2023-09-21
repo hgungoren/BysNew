@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "name": "my-app",
+  "private": true,
+  "dependencies": {
+    "@volo/abp.aspnetcore.mvc.ui.theme.lepton": "~7.0.0",
+    "@volo/account": "~7.0.0",
+    "@volo/audit-logging": "~7.0.0",
+    "@volo/file-management": "~7.0.0",
+    "@volo/identity": "~7.0.0",
+    "@volo/language-management": "~7.0.0",
+    "@volo/saas": "~7.0.0",
+    "cldrjs": "^0.5.5",
+    "devexpress-reporting": "22.2.5",
+    "devextreme": "^22.2.3",
+    "@devexpress/analytics-core": "22.2.5",
+    "devextreme-aspnet-data": "^2.9.0",
+    "devexpress-dashboard": "22.2.5",
+    "globalize": "^1.7.0",
+    "jquery-ui-dist": "^1.13.2",
+    "@microsoft/signalr": "^7.0.4"
+  }
+}

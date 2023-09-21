@@ -1,0 +1,36 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.Budgets
+@using ToksozBysNew.Budgets;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Budgets/CreateModal" autocomplete="off">
+    <abp-modal id="BudgetCreateModal">
+        <abp-modal-header title="@L["NewBudget"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="Budget.BudgetName" />
+
+            <abp-input asp-for="Budget.Year" />
+
+            <abp-input asp-for="Budget.Comment" />
+
+            <abp-input asp-for="Budget.IsActive" />
+
+            <abp-input asp-for="Budget.OpenUntil" value="" type="date"/>
+
+                                <abp-select asp-for="Budget.CompanyId" asp-items="Model.CompanyLookupList" label="@L["Company"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

@@ -1,0 +1,70 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using ToksozBysNew.Permissions
+@using ToksozBysNew.Web.Pages.Districts
+@using ToksozBysNew.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+@model IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["Districts"].Value;
+    PageLayout.Content.MenuItemName = ToksozBysNewMenus.Districts;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Districts/index.js" />
+}
+
+@section content_toolbar {
+    <abp-button id="ExportToExcelButton" text="@L["ExportToExcel"].Value" icon="download" size="Small" button-type="Primary" />
+    @if (await Authorization.IsGrantedAsync(ToksozBysNewPermissions.Districts.Create))
+    {
+        <abp-button id="NewDistrictButton" text="@L["NewDistrict"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+		<abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]"/>
+                        <abp-button button-type="Primary" type="submit" icon="search"/>
+                    </div>
+                </form>
+            </abp-column>
+            <abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>
+        </abp-row>
+
+        <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-column size="_3">
+                <abp-input asp-for="DistrictNameFilter" label="@L["DistrictName"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="CountryIdFilter" label="@L["Country"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="ProvinceIdFilter" label="@L["Province"].Value" />
+            </abp-column>
+        </abp-row>
+
+        <abp-table striped-rows="true" id="DistrictsTable">
+            <thead>
+				<tr>
+					<th>@L["Actions"]</th>
+					<th>@L["DistrictName"]</th>
+					<th>@L["Country"]</th>
+					<th>@L["Province"]</th>
+				</tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

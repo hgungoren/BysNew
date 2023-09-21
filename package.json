@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@devexpress/analytics-core": "^22.2.4",
+    "@microsoft/signalr": "^7.0.4",
+    "ace-code": "^1.15.3",
+    "devexpress-dashboard": "^22.2.4",
+    "devextreme": "^22.2.4"
+  }
+}

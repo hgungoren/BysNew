@@ -1,0 +1,30 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.Visits
+@using ToksozBysNew.Visits;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Visits/CreateModal" autocomplete="off">
+    <abp-modal id="VisitCreateModal">
+        <abp-modal-header title="@L["NewVisit"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="Visit.VisitDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date"/>
+
+            <abp-input asp-for="Visit.VisitNotes" />
+
+                                <abp-select asp-for="Visit.DoctorId" asp-items="Model.DoctorLookupList" label="@L["Doctor"].Value"/>            <abp-select asp-for="Visit.UnitId" asp-items="Model.UnitLookupList" label="@L["Unit"].Value"/>            <abp-select asp-for="Visit.ClinicId" asp-items="Model.ClinicLookupList" label="@L["Clinic"].Value"/>            <abp-select asp-for="Visit.BrickId" asp-items="Model.BrickLookupList" label="@L["Brick"].Value"/>            <abp-select asp-for="Visit.IdentityUserId" asp-items="Model.IdentityUserLookupList" label="@L["IdentityUser"].Value"/>            <abp-select asp-for="Visit.SpecId" asp-items="Model.SpecLookupList" label="@L["Spec"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

@@ -1,0 +1,149 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@model ToksozBysNew.Web.Pages.InvoiceDetails.DetailsModel
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+
+@section scripts
+    {
+    <abp-script src="/Pages/InvoiceDetails/details.js" /> 
+}
+@section content_toolbar {
+    <abp-button id="ExportToExcelButton" text="@L["ExportToExcel"].Value" icon="download" size="Small" button-type="Primary" />
+    <abp-button id="NewInvoiceDetailButton" text="@L["NewInvoiceDetail"].Value" icon="plus" size="Small" button-type="Primary" />
+}
+
+<abp-card>
+    <abp-card-body>
+        <abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]" />
+                        <abp-button button-type="Primary" type="submit" icon="search" />
+                    </div>
+                </form>
+            </abp-column>
+            <abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>
+        </abp-row>
+
+        <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-input hidden="true" id="invoiceId" asp-for="Invoice.Id" label="@L["Id"].Value" />
+            <abp-column size="_3">
+                <abp-input asp-for="InvoiceSerialNoFilter" label="@L["InvoiceSerialNo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="InvoiceDateFilterMin" label="@L["MinInvoiceDate"].Value" type="date" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="InvoiceDateFilterMax" label="@L["MaxInvoiceDate"].Value" type="date" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="NotesFilter" label="@L["Notes"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="PaymentDateFilterMin" label="@L["MinPaymentDate"].Value" type="date" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="PaymentDateFilterMax" label="@L["MaxPaymentDate"].Value" type="date" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="AmountFilterMin" label="@L["MinAmount"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="AmountFilterMax" label="@L["MaxAmount"].Value" />
+            </abp-column>
+        </abp-row>
+
+        <abp-table striped-rows="true" id="InvoicesTable">
+            <thead>
+                <tr>
+                    <th>@L["Actions"]</th>
+                    <th>@L["InvoiceSerialNo"]</th>
+                    <th>@L["InvoiceDate"]</th>
+                    <th>@L["Notes"]</th>
+                    <th>@L["PaymentDate"]</th>
+                    <th>@L["Amount"]</th>
+                </tr>
+            </thead>
+        </abp-table>
+
+        <abp-tabs>
+            <abp-table striped-rows="true" id="DetailsTable">
+                <abp-tab title="Detaylar">
+                    <abp-row class="mb-3">
+                        <abp-column size-md="_12">
+                            <form id="SearchForm" autocomplete="off">
+                                <div class="input-group">
+                                    <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]" />
+                                    <abp-button button-type="Primary" type="submit" icon="search" />
+                                </div>
+                            </form>
+                        </abp-column>
+                        <abp-column size-md="_12" class="mt-3">
+                            <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+                        </abp-column>
+                    </abp-row>
+
+                    <abp-row id="AdvancedFilterSection" style="display: none;">
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceDetailQuantityFilterMin" label="@L["MinInvoiceDetailQuantity"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceDetailQuantityFilterMax" label="@L["MaxInvoiceDetailQuantity"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceDetailPriceFilterMin" label="@L["MinInvoiceDetailPrice"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceDetailPriceFilterMax" label="@L["MaxInvoiceDetailPrice"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceDetailNoteFilter" label="@L["InvoiceDetailNote"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceSerialNoFilter" label="@L["InvoiceSerialNo"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceDateFilterMin" label="@L["MinInvoiceDate"].Value" type="date" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceDateFilterMax" label="@L["MaxInvoiceDate"].Value" type="date" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceNotesFilter" label="@L["InvoiceNotes"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoicePaymentDateFilterMin" label="@L["MinInvoicePaymentDate"].Value" type="date" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoicePaymentDateFilterMax" label="@L["MaxInvoicePaymentDate"].Value" type="date" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceAmountFilterMin" label="@L["MinInvoiceAmount"].Value" />
+                        </abp-column>
+                        <abp-column size="_3">
+                            <abp-input asp-for="InvoiceAmountFilterMax" label="@L["MaxInvoiceAmount"].Value" />
+                        </abp-column>
+                    </abp-row>
+
+                    <abp-table striped-rows="true" id="InvoiceDetailsTable">
+                        <thead>
+                            <tr>
+                                <th>@L["Actions"]</th>
+                                <th>@L["InvoiceDetailQuantity"]</th>
+                                <th>@L["InvoiceDetailPrice"]</th>
+                                <th>@L["InvoiceDetailNote"]</th>   
+                                <th>@L["InvoiceDetailDate"]</th> 
+                            </tr>
+                        </thead>
+                    </abp-table>
+                </abp-tab>
+            </abp-table>
+        </abp-tabs>
+
+
+    </abp-card-body>
+</abp-card>

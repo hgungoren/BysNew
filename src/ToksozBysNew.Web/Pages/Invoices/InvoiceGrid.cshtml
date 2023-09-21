@@ -1,0 +1,180 @@
+﻿@page
+@model ToksozBysNew.Web.Pages.Invoices.InvoiceGridModel
+@using Microsoft.AspNetCore.Authorization
+@using ToksozBysNew.InvoiceDetails;
+@using ToksozBysNew.Invoices;
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using ToksozBysNew.Permissions
+@using ToksozBysNew.Web.Pages.Invoices
+@using ToksozBysNew.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using DevExtreme.AspNet.Mvc;
+@using Elsa.Activities.Workflows.Workflow;
+@using Elsa.Models
+@*@inject IWorkflowInvoker WorkflowInvoker*@
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@inject IAuthorizationService Authorization
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["Invoices"].Value;
+    PageLayout.Content.MenuItemName = ToksozBysNewMenus.Invoices;
+}
+@*@{
+    public async Task HandleFormSubmission()
+{
+    var input = new Variables();
+    input.SetVariable("RegistrationModel", registrationModel);
+
+    await WorkflowInvoker.TriggerSignalAsync("RegisterUser", input);
+    ShowConfirmation = true;
+}
+}*@
+
+<style>
+    .flex {
+        display: flex;
+        gap: 1341px;
+    }
+</style>
+
+@section scripts
+    {
+    <abp-script src="/Pages/Invoices/InvoiceGrid.js" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.10.1/polyfill.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/3.8.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+}
+
+<div class="row" hidden="hidden">
+    <abp-input id="invoiceId" asp-for="@Model.Invoice.Id"></abp-input>
+</div>
+<form method="post">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.InvoiceSerialNo"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.InvoiceDate"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.Notes"></abp-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.PaymentDate"></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.Amount" type=number min=0 step=0,01></abp-input>
+            </div>
+            <div class="col-md-4">
+                <abp-input asp-for="@Model.Invoice.ApprovalStatus" id="approved" type=text></abp-input>
+            </div>
+        </div>
+        <div class="flex">
+            <abp-button style="float:left" type="submit" id="Save" text="@L["Save"].Value" icon="save" size="Small" button-type="Primary" />
+            @if (await Authorization.IsGrantedAsync(ToksozBysNewPermissions.Invoices.Create))
+            {
+                <abp-button style="float:right" id="NewInvoiceDetailButton" text="@L["NewInvoiceDetail"].Value" icon="plus" size="Small" button-type="Primary" />
+            } 
+        </div>
+        <abp-button  id="btnMail" text="Mail Gönder" icon="plus" size="Small" button-type="Primary" />
+        <abp-button  id="btnApprove" text="Onayla" icon="fa regular fa-thumbs-up" size="Small" button-type="Primary" />
+        <abp-button  id="btnReject" text="Reddet" icon="fa solid fa-xban" size="Small" button-type="Primary" />
+    </div>
+</form>
+
+
+
+<abp-card>
+    <abp-card-body>
+
+
+        @(
+            Html.DevExtreme().DataGrid<InvoiceDetailDto>()
+            .ID("gridContainer")
+            .DataSource(d => d.Mvc().Controller("Invoice").LoadAction("GetData").LoadParams(new { id = Model.Invoice.Id }).UpdateAction("UpdateInvoiceDetail").Key("Id"))
+            .Selection(s => s.Mode(SelectionMode.Multiple))
+            .Export(e => e.Enabled(true).AllowExportSelectedData(true))
+            .ShowBorders(true)
+            .Editing(e => e
+            .Mode(GridEditMode.Row)
+            .AllowUpdating(true))
+            .LoadPanel(x => x.ShowPane(true))
+            .GroupPanel(groupPanel => groupPanel.Visible(true))
+            .Grouping(grouping => grouping.AutoExpandAll(true))
+            .OnExporting("exporting")
+            .OnEditingStart(@<text> function(e) { logEvent("EditingStart"); } </text>)
+            .OnInitNewRow(@<text> function(e) { logEvent("InitNewRow"); } </text>)
+            .OnRowInserting(@<text> function(e) { logEvent("RowInserting"); } </text>)
+            .OnRowInserted(@<text> function(e) { logEvent("RowInserted"); } </text>)
+            .OnRowUpdating(@<text> function(e) { logEvent("RowUpdating"); } </text>)
+            .OnRowUpdated(@<text> function(e) { logEvent("RowUpdated"); } </text>)
+            .OnRowRemoving(@<text> function(e) { logEvent("RowRemoving"); } </text>)
+            .OnRowRemoved(@<text> function(e) { logEvent("RowRemoved"); } </text>)
+            .OnSaving(@<text> function(e) { logEvent("Saving"); } </text>)
+            .OnSaved(@<text> function(e) { logEvent("Saved"); } </text>)
+            .OnEditCanceling(@<text> function(e) { logEvent("EditCanceling"); } </text>)
+            .OnEditCanceled(@<text> function(e) { logEvent("EditCanceled"); } </text>)
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.Id).AllowEditing(false);
+                columns.AddFor(m => m.InvoiceDetailNote);
+                columns.AddFor(m => m.InvoiceDetailPrice);
+                columns.AddFor(m => m.InvoiceDetailDate).DataType(GridColumnDataType.Date).Width(100);
+                columns.AddFor(m => m.InvoiceDetailQuantity);
+                columns.AddFor(m => m.Tax).Width(100);
+            })
+            )
+    </abp-card-body>
+</abp-card>
+
+<div id="events">
+    <div>
+        <div class="caption">
+            Fired events
+        </div>
+        @(Html.DevExtreme().Button()
+            .ID("clear")
+            .Text("Clear")
+            .OnClick("onClearClick")
+            )
+    </div>
+    <ul></ul>
+</div>
+
+<script>
+    function logEvent(eventName) {
+        var logList = $("#events ul"),
+            newItem = $("<li>", { text: eventName });
+
+        logList.prepend(newItem);
+    }
+
+    function onClearClick() {
+        $("#events ul").empty();
+    }
+</script>
+
+
+<script>
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Employees');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Employees.xlsx');
+            });
+        });
+        e.cancel = true;
+    }
+</script>
+
+

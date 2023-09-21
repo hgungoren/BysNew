@@ -1,0 +1,44 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.Web.Pages.InvoiceDetails
+@using ToksozBysNew.InvoiceDetails;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+
+
+
+
+<form data-ajaxForm="true" asp-page="/InvoiceDetails/CreateModal" autocomplete="off">
+    <div hidden="hidden">
+        <abp-input asp-for="InvoiceDetail.InvId" />
+    </div>
+
+    <abp-modal id="InvoiceDetailCreateModal">
+        <abp-modal-header title="@L["NewInvoiceDetail"].Value"></abp-modal-header>
+
+        <abp-modal-body> 
+            
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailQuantity" />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailPrice" type=number min=0 step=0,01 />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailNote" />
+
+            <abp-input asp-for="InvoiceDetail.InvoiceDetailDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" />
+
+            <abp-input asp-for="InvoiceDetail.SerialNo" readonly="true" label="@L["Invoice"].Value" />
+
+            <abp-select asp-for="InvoiceDetail.TaxListId"  asp-items="Model.TaxLookupList" label="@L["Tax"].Value" />
+
+        </abp-modal-body>
+
+        <abp-modal-footer id="btnSaveInvoiceDetail" buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

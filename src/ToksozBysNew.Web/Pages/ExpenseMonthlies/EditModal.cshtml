@@ -1,0 +1,60 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ToksozBysNew.Localization
+@using ToksozBysNew.Web.Pages.ExpenseMonthlies
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using ToksozBysNew.ExpenseMonthlies;
+@using System.Globalization
+@inject IHtmlLocalizer<ToksozBysNewResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/ExpenseMonthlies/EditModal" autocomplete="off">
+    <abp-modal id="ExpenseMonthlyEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    <abp-input asp-for="Id" />
+                    <abp-input asp-for="ExpenseMonthly.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+                    
+            <abp-input asp-for="ExpenseMonthly.AccountId" />
+
+            <abp-input asp-for="ExpenseMonthly.AccountGroup" />
+
+            <abp-input asp-for="ExpenseMonthly.Account" />
+
+            <abp-input asp-for="ExpenseMonthly.Department" />
+
+            <abp-input asp-for="ExpenseMonthly.ExpenseType" />
+
+            <abp-input asp-for="ExpenseMonthly.Product" />
+
+            <abp-input asp-for="ExpenseMonthly.Proje" />
+
+            <abp-input asp-for="ExpenseMonthly.Comment" />
+
+            <abp-input asp-for="ExpenseMonthly.Month" />
+
+            <abp-input asp-for="ExpenseMonthly.Year" />
+
+            <abp-input asp-for="ExpenseMonthly.Unit" />
+
+            <abp-input asp-for="ExpenseMonthly.UnitValue" />
+
+            <abp-input asp-for="ExpenseMonthly.Amount" />
+
+            <abp-input asp-for="ExpenseMonthly.Memo" />
+
+            <abp-input asp-for="ExpenseMonthly.Invoice" />
+
+            <abp-input asp-for="ExpenseMonthly.Remain" />
+
+                    
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

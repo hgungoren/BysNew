@@ -1,0 +1,125 @@
+﻿@page
+@model ToksozBysNew.Web.Pages.DevExtreme.OverviewModel
+@using DevExtreme.AspNet.Mvc
+@using ToksozBysNew.ExpenseMonthlies;
+@using ToksozBysNew.Web.Pages.DevExtreme  
+
+<abp-script-bundle name="DevExtremeScriptContributor" /> 
+<abp-style-bundle name="DevExtremeStyleContributor" />
+
+
+ 
+<div id="pivotgrid-demo"> 
+
+    @(Html.DevExtreme().PivotGrid<ExpenseMonthlyDto>()
+        .ID("pivotgrid")
+        .ShowBorders(true)
+        .AllowSorting(true) 
+        .AllowSortingBySummary(true)
+        .ShowColumnGrandTotals(false)
+        .DataSource(d => d
+        .Store(s => s.Mvc().Controller("PivotGridData").LoadAction("Get"))
+        .Fields(fields =>
+        {
+            fields.AddFor(m => m.Department)
+            .Area(PivotGridArea.Row);
+
+            fields.AddFor(m => m.Product)
+            .Area(PivotGridArea.Row);
+
+            fields.AddFor(m => m.AccountGroup)
+            .Area(PivotGridArea.Row);
+
+            fields.AddFor(m => m.Proje)
+            .Area(PivotGridArea.Row);
+
+            fields.AddFor(m => m.ExpenseType)
+            .Area(PivotGridArea.Row);
+
+            fields.AddFor(m => m.Comment)
+            .Area(PivotGridArea.Row);
+
+            fields.AddFor(m => m.Year)
+            .Area(PivotGridArea.Column);
+
+            fields.AddFor(m => m.UnitValue)
+            .Format(Format.Decimal)
+            .Area(PivotGridArea.Data);
+
+            fields.AddFor(m => m.Amount)
+            .SummaryType(SummaryType.Sum)
+            .Format(Format.FixedPoint)
+            .Area(PivotGridArea.Data);
+
+            fields.AddFor(m => m.Memo)
+            .SummaryType(SummaryType.Sum)
+            .Format(Format.FixedPoint)
+            .Area(PivotGridArea.Data);
+
+            fields.AddFor(m => m.Invoice)
+            .SummaryType(SummaryType.Sum)
+            .Format(Format.FixedPoint)
+            .Area(PivotGridArea.Data);
+
+            fields.AddFor(m => m.Remain)
+            .SummaryType(SummaryType.Sum)
+            .Format(Format.FixedPoint)
+            .Area(PivotGridArea.Data); 
+        })
+        )
+        ) 
+        
+</div>  
+@(
+Html.DevExtreme().DataGrid()
+    .ID("gridContainer")
+    .DataSource(ds => ds
+        .Mvc()
+        .Controller("PivotGridData") 
+        .LoadAction("Get") 
+    )
+    .RemoteOperations(false)
+    .AllowColumnReordering(true)
+    .RowAlternationEnabled(true) 
+    .ShowBorders(true)
+    .OnContentReady("contentReady")
+    .Paging(p => p.PageSize(10))
+    .Pager(p => p
+        .ShowPageSizeSelector(true)
+        .AllowedPageSizes(new[] { 10, 25, 50, 100 })
+    )
+    .SearchPanel(s => s
+        .Visible(true)
+        .HighlightCaseSensitive(true)
+    )
+    .GroupPanel(g => g.Visible(true))
+    .Grouping(g => g.AutoExpandAll(false))
+    .Columns(columns =>
+    {
+        columns.Add()
+            .DataField("Product");
+
+        columns.Add()
+            .DataField("Department") 
+            .DataType(GridColumnDataType.String) 
+            .Alignment(HorizontalAlignment.Right);
+             
+        columns.Add()
+            .DataField("AccountGroup")
+            .DataType(GridColumnDataType.String); 
+    })
+)
+
+<script>
+    var collapsed = false;
+    function contentReady(e) {
+        if(!collapsed) {
+            collapsed = true;
+            e.component.expandRow(["EnviroCare"]);
+        }
+    }
+
+    function customizeTooltip(pointsInfo) {
+        return { text: parseInt(pointsInfo.originalValue) + "%" };
+    }
+</script>
